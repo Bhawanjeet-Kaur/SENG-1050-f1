@@ -12,6 +12,7 @@
 #include <malloc.h>
 #pragma warning(disable: 4996)
 const int kMaxLoop = 10;
+const int kMaxInput = 30;
 struct FlightInfo
 {
 	char* destination;
@@ -19,9 +20,26 @@ struct FlightInfo
 };
 int fillFlightInfo(FlightInfo* myFlight, char* destination, char* date);
 void printFlightInfo(FlightInfo* myFlight);
+void replaceNewlineWithNull(char* inputString);
 int main(void)
 {
 	struct FlightInfo myFlight[kMaxLoop];
+	for (int index = 0; index < kMaxLoop; index++)
+	{
+		//prompt the destination
+		printf("Enter the destination for flight %d: \n", index + 1);
+		char destination[kMaxInput] = "";
+		fgets(destination, sizeof destination, stdin);
+		replaceNewlineWithNull(destination);
+
+		//propmt the date
+		printf("Enter the date for flight %d (DD-MM-YYYY): \n", index + 1);
+		char date[kMaxInput] = "";
+		fgets(date, sizeof date, stdin);
+		replaceNewlineWithNull(date);
+
+		fillFlightInfo(&myFlight[index], destination, date);
+	}
 	return 0;
 }
 /*============================================================================================*/
@@ -45,4 +63,21 @@ int fillFlightInfo(FlightInfo* myFlight, char* destination, char* date)
 void printFlightInfo(FlightInfo* myFlight)
 {
 
+}
+/*============================================================================================*/
+/* NAME: replaceNewlineWithNull()                                                             */
+/* DESCRIPTION: This function takes one parameter, and replaces the new line with the null    */
+/*              terminator.                                                                   */
+/* PARAMETERS: FlightInfo* myFlight.                                                          */
+/* RETURNS: Nothing.                                                                          */
+/*============================================================================================*/
+void replaceNewlineWithNull(char* inputString)
+{
+	for (int index = 0; inputString[index] != '\0'; index++)
+	{
+		if (inputString[index] == '\n')
+		{
+			inputString[index] = '\0';
+		}
+	}
 }
