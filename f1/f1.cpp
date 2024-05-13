@@ -51,6 +51,22 @@ int main(void)
 /*============================================================================================*/
 int fillFlightInfo(FlightInfo* myFlight, char* destination, char* date)
 {
+	myFlight->destination = (char*)malloc(kMaxInput * sizeof(char));
+	if (myFlight->destination == NULL)
+	{
+		printf("Memory allocation failed!\n");
+		return 1;
+	}
+	//Assigning the inputs in the struct for destination
+	strcpy(myFlight->destination, destination);
+	myFlight->date = (char*)malloc(kMaxInput * sizeof(char));
+	if (myFlight->date == NULL)
+	{
+		printf("Memory allocation failed!\n");
+		return 1;
+	}
+	//Assigning the inputs in the struct for date
+	strcpy(myFlight->date, date);
 	return 0;
 }
 /*============================================================================================*/
