@@ -40,6 +40,12 @@ int main(void)
 
 		fillFlightInfo(&myFlight[index], destination, date);
 	}
+	printFlightInfo(myFlight);
+	for (int index = 0;index < kMaxLoop;index++)
+	{
+		free(myFlight[index].destination);
+		free(myFlight[index].date);
+	}
 	return 0;
 }
 /*============================================================================================*/
@@ -78,7 +84,11 @@ int fillFlightInfo(FlightInfo* myFlight, char* destination, char* date)
 /*============================================================================================*/
 void printFlightInfo(FlightInfo* myFlight)
 {
-
+	printf("%-35s %-35s\n", "Destination", "Date");
+	for (int index = 0;index < kMaxLoop;index++)
+	{
+		printf("%-35s %-35s\n", myFlight[index].destination, myFlight[index].date);
+	}
 }
 /*============================================================================================*/
 /* NAME: replaceNewlineWithNull()                                                             */
